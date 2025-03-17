@@ -17,23 +17,23 @@
 }
 
 @layer utilities {
+  /* Custom Scrollbar */
   .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
   }
 
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #0c101a; /* Dark background */
+    border-radius: 10px;
+  }
+
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #050c1d;
-    border-radius: 3px;
+    background: #414141; /* Your gradient colors */
+    border-radius: 10px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #020713;
-    cursor: pointer;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: #1f1f1f; /* Light background */
-    border-radius: 10px;
+    background: #4e4e4e;
   }
 }
 
@@ -42,4 +42,5 @@ body {
   background: var(--background);
   font-family: var(--font-funnel-sans), var(--font-poppins-sans),
     var(--font-geist-sans), Helvetica, sans-serif;
+  overflow: hidden;
 }
