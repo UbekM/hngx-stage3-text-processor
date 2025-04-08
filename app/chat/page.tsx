@@ -11,15 +11,48 @@ export default function Chat() {
   const [message, setMessage] = useState("");
   const [submittedMessage, setSubmittedMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
+  const [detectedLanguage, setDetectedLanguage] = useState("Detecting...");
 
-  const handleSubmit = () => {
+  const languageNames: { [key: string]: string } = {
+    en: "English",
+    pt: "Portuguese",
+    es: "Spanish",
+    ru: "Russian",
+    tr: "Turkish",
+    fr: "French",
+    // Add more languages as needed
+  };
+
+  const handleSubmit = async () => {
+    if (!message.trim()) return;
+  
     setSubmittedMessage(message);
     setMessage("");
-    if (message.length > 150) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
+  
+    try {
+      const response = await fetch("/api/detect-language", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: message }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      const langCode = data.detectedLanguage;
+      const langName = languageNames[langCode] || langCode;
+      setDetectedLanguage(langName);
+    } catch (error) {
+      console.error("Error detecting language:", error);
+      setDetectedLanguage("Error detecting language");
     }
+  
+    // Existing length check
+    setDisabled(message.length <= 150);
   };
 
   return (
@@ -58,7 +91,7 @@ export default function Chat() {
             <span className="text-[#5ad9fc] font-medium">
               Detected Language:
             </span>{" "}
-            English
+            {detectedLanguage}
           </p>
           {/* BUTTONS */}
           <div className="md:flex block lg:space-y-0 space-y-2 gap-3 pb-[1rem] items-center justify-center">
@@ -161,7 +194,7 @@ export default function Chat() {
             ></textarea>
             <div
               className="absolute bottom-4 right-3  rounded-xl lg:w-10 lg:h-10 w-10 h-10 bg-gradient-to-r from-[#63D7F6] to-[#5376F6] flex justify-center items-center hover:cursor-pointer hover:bg-gradient-to-r hover:from-[#4067f1] hover:to-[#5ad9fc]"
-              onClick={handleSubmit}
+              onClick={() => handleSubmit()}
             >
               <Send className="text-[#050C1D] lg:w-5 lg:h-5 w-5 " />
             </div>

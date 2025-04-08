@@ -42,6 +42,10 @@ export default function RootLayout({
       <Head>
         <link rel="icon" href="/lingobot.ico" />
         <link rel="shortcut icon" href="/lingobot.png" type="image/x-icon" />
+        <meta
+          http-equiv="origin-trial"
+          content="AiwVOO8KIKZOLc7dku0/hNKpxxvCKQk5jnYRaZD4RUDDGNYmYCPhZ+YtvzCbvRWAZq7CkhMLnxiGtKuyfHCBkQUAAACDeyJvcmlnaW4iOiJodHRwczovL2xpbmdvYm90LXRleHQtcHJvY2Vzc29yLnZlcmNlbC5hcHA6NDQzIiwiZmVhdHVyZSI6Ikxhbmd1YWdlRGV0ZWN0aW9uQVBJIiwiZXhwaXJ5IjoxNzQ5NTk5OTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZX0="
+        ></meta>
       </Head>
       <body
         className={`${funnelSans.variable} ${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
